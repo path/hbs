@@ -39,35 +39,32 @@ app.get('/with_layout', function(req, res){
 
 suite('no layout');
 
-test('index', function(done) {
-  var server = app.listen(3000, function() {
+var server = app.listen(3002);
+describe('server', function () {
+  before(function (done) {
+    done();
+  });
+  after(function() {
+    server.close();
+  })
+});
 
+describe('request layout', function () {
+  it('index', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
 
-    request('http://localhost:3000', function(err, res, body) {
+    request('http://localhost:3002', function(err, res, body) {
       assert.equal(body, expected);
-      server.close();
+      done();
     });
   });
 
-  server.on('close', function() {
-    done();
-  });
-});
-
-test('index w/layout', function(done) {
-  var server = app.listen(3000, function() {
-
+  it('index w/layout', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
 
-    request('http://localhost:3000/with_layout', function(err, res, body) {
+    request('http://localhost:3002/with_layout', function(err, res, body) {
       assert.equal(body, expected);
-      server.close();
+      done();
     });
   });
-
-  server.on('close', function() {
-    done();
-  });
 });
-

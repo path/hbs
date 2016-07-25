@@ -139,7 +139,7 @@ app.get('/each-block', function(req, res) {
   });
 });
 
-var server = app.listen(3000);
+var server = app.listen(3003);
 describe('server', function () {
   before(function (done) {
     done();
@@ -154,7 +154,7 @@ describe('request', function () {
   it('index', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
 
-    request({url: 'http://localhost:3000'}, function(err, res, body) {
+    request({url: 'http://localhost:3003'}, function(err, res, body) {
       assert.equal(body, expected);
       done();
     });
@@ -163,7 +163,7 @@ describe('request', function () {
   it('partials', function (done) {
     var expected = 'Test Partial 1Test Partial 2Test Partial 3\n';
 
-    request({url: 'http://localhost:3000/partials'}, function(err, res, body) {
+    request({url: 'http://localhost:3003/partials'}, function(err, res, body) {
       assert.equal(body.trim(), expected.trim());
       done();
     });
@@ -172,14 +172,14 @@ describe('request', function () {
   it('html extension', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
 
-    request({url: 'http://localhost:3000/html'}, function(err, res, body) {
+    request({url: 'http://localhost:3003/html'}, function(err, res, body) {
       assert.equal(body, expected);
       done();
     });
   });
 
   it('syntax error', function (done) {
-    request({url: 'http://localhost:3000/syntax-error'}, function(err, res, body) {
+    request({url: 'http://localhost:3003/syntax-error'}, function(err, res, body) {
       assert.equal(res.statusCode, 500);
       // assert.equal(body.split('\n')[0], 'Error: ' + __dirname + '/views/syntax-error.hbs: Parse error on line 1:');
       // assert.equal(bod);
@@ -190,7 +190,7 @@ describe('request', function () {
   it('escape for frontend', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/escape.html', 'utf8');
 
-    request({url: 'http://localhost:3000/escape'}, function(err, res, body) {
+    request({url: 'http://localhost:3003/escape'}, function(err, res, body) {
       assert.equal(body, expected);
       done();
     });
@@ -199,7 +199,7 @@ describe('request', function () {
   it('The each block helper', function (done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/each-block.html', 'utf8');
 
-    request({url: 'http://localhost:3000/each-block'}, function(err, res, body) {
+    request({url: 'http://localhost:3003/each-block'}, function(err, res, body) {
       assert.equal(body, expected);
       done();
     });
